@@ -1,0 +1,26 @@
+# Kubernetes
+*.swp
+
+# Linux
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+tmp/
+temp/
+
+# Minikube
+.kube/
+
+# Certificates
+certs/
+*.pem
+*.key
+*.crt
+
+# Build artifacts
+dist/
+build/

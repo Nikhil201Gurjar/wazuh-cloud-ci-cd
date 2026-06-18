@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  namespace: wazuh-cloud
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: demo-app
+
+  template:
+    metadata:
+      labels:
+        app: demo-app
+
+    spec:
+      containers:
+        - name: demo-app
+          image: localhost:5000/demo-app:v1
+
+          ports:
+           - containerPort: 80
+
+
+          volumeMounts:
+            - name: demo-content
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+
+ 
+      volumes:
+       - name: demo-content
+         configMap:
+           name: demo-content
+
