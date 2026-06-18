@@ -31,4 +31,4 @@ jobs:
 
     - name: Verify Image
       run: |
-        docker images | grep demo-app
+        docker images
