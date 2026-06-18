@@ -1,4 +1,4 @@
-name: Build Demo App
+name: Build and Publish Demo App
 
 on:
   push:
@@ -12,23 +12,33 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
 
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Show Repository Contents
+    - name: Login to GHCR
       run: |
-        pwd
-        ls -la
-        tree -L 3 || true
+        echo "${{ secrets.GITHUB_TOKEN }}" | \
+        docker login ghcr.io \
+        -u ${{ github.actor }} \
+        --password-stdin
 
-    - name: Build Demo Image
+    - name: Build Image
       run: |
         docker build \
-          -t demo-app:test \
+          -t ghcr.io/${{ github.repository_owner }}/demo-app:latest \
           images/demo-app
 
-    - name: Verify Image
+    - name: Push Image
+      run: |
+        docker push \
+          ghcr.io/${{ github.repository_owner }}/demo-app:latest
+
+    - name: Verify
       run: |
         docker images
