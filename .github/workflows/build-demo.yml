@@ -1,0 +1,34 @@
+name: Build Demo App
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Show Repository Contents
+      run: |
+        pwd
+        ls -la
+        tree -L 3 || true
+
+    - name: Build Demo Image
+      run: |
+        docker build \
+          -t demo-app:test \
+          images/demo-app
+
+    - name: Verify Image
+      run: |
+        docker images | grep demo-app
