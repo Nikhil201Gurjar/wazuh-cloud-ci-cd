@@ -1,0 +1,21 @@
+name: Self Hosted Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  test:
+
+    runs-on: self-hosted
+
+    steps:
+
+      - name: Show Hostname
+        run: hostname
+
+      - name: Show Docker
+        run: docker version
+
+      - name: Show Kubectl
+        run: kubectl get nodes
