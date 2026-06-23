@@ -1,16 +1,16 @@
 name: Deploy Demo App
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-
   deploy:
-
     runs-on: self-hosted
 
     steps:
-
       - name: Show Hostname
         run: hostname
 
