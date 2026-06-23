@@ -1,34 +1,24 @@
-name: Build Demo App
+name: Deploy Demo App
 
 on:
-  push:
-    branches:
-      - main
-      - feature/*
+  workflow_dispatch:
 
 jobs:
 
-  build:
+  deploy:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
 
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Show Hostname
+        run: hostname
 
-    - name: Show Repository Contents
-      run: |
-        pwd
-        ls -la
-        tree -L 3 || true
+      - name: Verify Cluster
+        run: kubectl get nodes
 
-    - name: Build Demo Image
-      run: |
-        docker build \
-          -t demo-app:test \
-          images/demo-app
+      - name: Verify Deployment
+        run: kubectl get deployment -n wazuh-cloud
 
-    - name: Verify Image
-      run: |
-        docker images
+      - name: Verify Pods
+        run: kubectl get pods -n wazuh-cloud
