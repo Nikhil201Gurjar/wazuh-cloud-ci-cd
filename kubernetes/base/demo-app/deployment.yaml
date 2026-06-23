@@ -19,7 +19,9 @@ spec:
     spec:
       containers:
         - name: demo-app
-          image: ghcr.io/nikhil201gurjar/demo-app:latest
+          image: ghcr.io/nikhil201gurjar/demo-app:1e84e48
+         
+          imagePullPolicy: Always
 
           ports:
            - containerPort: 80
